@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using HarmonyLib;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace DspEnemyThreat
@@ -38,9 +39,27 @@ namespace DspEnemyThreat
     [HarmonyPatch(typeof(DFGBaseComponent), nameof(DFGBaseComponent.UpdateFactoryThreat))]
     public static class ThreatOverride1
     {
+        [UsedImplicitly]
         public static bool Prefix()
         {
             return DspEnemyThreat.IsActive;
+        }
+    }
+
+
+    [HarmonyPatch(typeof(EnemyDFHiveSystem), nameof(EnemyDFHiveSystem.KeyTickLogic))]
+    public static class ThreatOverride2
+    {
+        [UsedImplicitly]
+        public static bool Prefix(EnemyDFHiveSystem __instance)
+        {
+            if (!DspEnemyThreat.IsActive)
+            {
+                __instance.evolve.threat = 0;
+                return false;
+            }
+
+            return true;
         }
     }
 }
