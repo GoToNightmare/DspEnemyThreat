@@ -1,0 +1,7 @@
+{
+    "name": "DspEnemyThreat",
+    "description": "F7 to start or stop enemy threat",
+    "version_number": "1.0.3",
+    "dependencies": [],
+    "website_url": "https://github.com/GoToNightmare/DspEnemyThreat"
+}
